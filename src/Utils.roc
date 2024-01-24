@@ -87,7 +87,12 @@ numDaysSinceEpoch = \{year, month? 1, day? 1} ->
     )
     daysInYears + daysInMonths + day - 1
 
-#expect numDaysSinceEpoch {year: 2024} == 19723
+# IMPORTANT
+# Source of bug here:
+# If next line is commented out, the compiler crashes with:
+# thread 'main' panicked at 'Error in alias analysis: error in module ModName("UserApp"), function definition FuncName("\x11\x00\x00\x00\x02\x00\x00\x00\xcbr?\x05\x92\xae\x19\x92"), definition of value binding ValueId(3): expected type '(((), (), ()),)', found type '((),)'', crates/compiler/gen_llvm/src/llvm/build.rs:5761:19
+# if not commented out, the comiler says optional record fields are missing.
+expect numDaysSinceEpoch {year: 2024} == 19723
 
 numDaysSinceEpochToYear = \year ->
     numDaysSinceEpoch {year}
