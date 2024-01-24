@@ -94,6 +94,10 @@ numDaysSinceEpoch = \{year, month? 1, day? 1} ->
 # if not commented out, the comiler says optional record fields are missing.
 expect numDaysSinceEpoch {year: 2024} == 19723
 
+# IMPORTANT
+# Second source of bug:
+# adding optional arguments here, ie: `numDaysSinceEpoch {year, month: 1, day: 1}`
+# will prevent the compiler panic, and allow `roc test Utils.roc` to succeed.
 numDaysSinceEpochToYear = \year ->
     numDaysSinceEpoch {year}
 
